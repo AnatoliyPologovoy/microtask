@@ -1,13 +1,13 @@
+import {FilterType} from "../App";
+
 type ButtonPropsType = {
     name : string
-    callBack? : ()=> void
+    callBack :  ()=> void
 }
 
 export const Button = (props : ButtonPropsType) => {
 
     const onClickHandler = () => {
-
-        // @ts-ignore
         props.callBack()
     }
 

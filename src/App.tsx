@@ -3,8 +3,7 @@ import './App.css';
 import { Button } from './Components/Button';
 import { ShowList } from './Components/ShowList';
 
-
-
+export type FilterType = 'Dollars' | 'RUBLS' | 'all';
 
 function App() {
 
@@ -21,16 +20,11 @@ function App() {
     { banknots: 'RUBLS', value: 50, number: ' v1234567890' },
   ])     
 
-  // const showMoney = (name : string) => {
-  //   money.filter((curr)=>curr.banknots === name)
-  //   setMoney(money);
-  // }
-
   let currentMoney = money;
 
-  const[filter, setFilter] = useState('all')
+  const[filter, setFilter] = useState<FilterType>('all')
 
-  const onClickHandler = (nameButton:string) => {
+  const onClickHandler = (nameButton:FilterType) => {
     //nameButton = name;
     setFilter(nameButton);
   }
@@ -40,17 +34,10 @@ function App() {
   if (filter === 'RUBLS') {
     currentMoney = money.filter((curr)=>curr.banknots === 'RUBLS');
   }
-  
 
-    
   return(
     <div className={'APP'}>
-      <ShowList money={currentMoney}/>
-      {/* <Button name='Show Dollars' callBack={()=>showMoney('Dollars')}/> 
-      <Button name='Show Rouble' callBack={()=>showMoney('RUBLS')}/>  */}
-      <Button name='Show Dollars' callBack={()=>onClickHandler('Dollars')}/> 
-      <Button name='Show Rouble' callBack={()=>onClickHandler('RUBLS')}/> 
-
+      <ShowList money={currentMoney} cbForButton={onClickHandler}/>
     </div>
   );
 }
