@@ -5,20 +5,22 @@ type FullInputPropsType = {
 }
 
 export const FullInput:React.FC<FullInputPropsType> = (props) => {
-    let [text, setText] = useState('')
+    let [text, setText] = useState<string>('')
 
     const onChangeInputHandler = (evt:ChangeEvent<HTMLInputElement>) => {
         setText(evt.currentTarget.value);
-
+       
     }
 
     const onClickButtonHandler = () => {
-        props.addMessage(text)
+        props.addMessage(text);
+        setText('');
+        
     }
 
     return (
         <div>
-            <input onChange={onChangeInputHandler}/>
+            <input value={text} onChange={onChangeInputHandler}/>
             <button onClick={onClickButtonHandler}>+</button>
         </div>
     )
