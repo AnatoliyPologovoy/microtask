@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import { Button } from './Components/Button';
-//import {FullInput} from "./Components/FullInput";
-import { Input } from './Components/Input';
+import {Input} from './components/Input';
+import {Button} from "./components/Button";
+import Rating from "./components/Rating";
 
 
 function App() {
-  // eslint-disable-next-line
     const [messages, setMessage] = useState([
             {message: 'message1'},
             {message: 'message2'},
@@ -16,25 +15,28 @@ function App() {
         ]
     )
     let [text, setText] = useState<string>('')
-    // const addMessage = (text:string) => {
-    //     setMessage([{message:text}, ...messages])
-    // }
+
     const callBackForButton = () => {
-        setMessage([{message:text}, ...messages])
-        setText('')        
+        setMessage([{message: text}, ...messages])
+        setText('')
     }
+
+    const renderMessages = messages.map((el, index) => {
+        return (
+            <div key={index}>
+
+                {el.message}
+                <Rating/>
+            </div>
+        )
+    })
 
     return (
         <div className="App">
-            {/* <FullInput addMessage={addMessage}/> */}
 
-            <Input text={text} setText={setText} />
-            <Button name='+' callBack={callBackForButton}/> 
-            {messages.map((el, index) => {
-                return (
-                    <div key={index}>{el.message}</div>
-                )
-            })}
+            <Input text={text} setText={setText}/>
+            <Button name='+' callBack={callBackForButton}/>
+            {renderMessages}
         </div>
     );
 }
