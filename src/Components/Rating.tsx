@@ -17,38 +17,55 @@ let styleUl = {
 }
 
 const Rating = () => {
+    let [touchRating, setTouchRating] = useState(0)
     let [rating, setRating] = useState(0)
 
-
-
-    const onMouseDownLiHandler = (e:MouseEvent<HTMLLIElement>) => {
-        setRating(parseFloat(e.currentTarget.id))
+    const onMouseLeaveLiHandler = () => {
+        setTouchRating(0)
     }
-
     return (
-        <ul style={styleUl}>
-            <ItemRating isActive={rating > 0} id={'1'} onMouseDown={onMouseDownLiHandler} onMouseMove={onMouseDownLiHandler} />
-            <ItemRating isActive={rating > 1} id={'2'} onMouseDown={onMouseDownLiHandler} onMouseMove={onMouseDownLiHandler} />
-            <ItemRating isActive={rating > 2} id={'3'} onMouseDown={onMouseDownLiHandler} onMouseMove={onMouseDownLiHandler} />
+        <ul style={styleUl} onMouseLeave={onMouseLeaveLiHandler}>
+            <ItemRating isTouch={touchRating > 0} rating={rating} id={'1'} setTouchRating={setTouchRating}
+                        setRating={setRating}/>
+            <ItemRating isTouch={touchRating > 1} rating={rating} id={'2'} setTouchRating={setTouchRating}
+                        setRating={setRating}/>
+            <ItemRating isTouch={touchRating > 2} rating={rating} id={'3'} setTouchRating={setTouchRating}
+                        setRating={setRating}/>
         </ul>
     );
 };
 
+
 type ItemRatingPropsType = {
-    isActive: boolean
+    isTouch: boolean
+    rating: number
     id: string
-    onMouseDown: (e:MouseEvent<HTMLLIElement>)=> void
-    onMouseMove: (e:MouseEvent<HTMLLIElement>)=> void
+    setTouchRating: (rating: number) => void
+    setRating: (rating: number) => void
 }
 
-const ItemRating = (props:ItemRatingPropsType) => {
-    let currentStyle = props.isActive ? {...styleLi, backgroundColor: 'blue'} : styleLi
+const ItemRating = (props: ItemRatingPropsType) => {
+
+    const onMouseMoveLiHandler = (e: MouseEvent<HTMLLIElement>) => {
+        props.rating || props.setTouchRating(parseFloat(e.currentTarget.id))
+    }
+
+    const onClickLiHandler = () => {
+        props.rating || props.setRating(parseFloat(props.id))
+    }
+
+    let isRatingItem = props.rating > parseFloat(props.id) - 1
+    let ratingStyle = isRatingItem ? {...styleLi, backgroundColor: 'blue'} : styleLi
+    let touchStyle = props.isTouch ? {...styleLi, backgroundColor: 'lightblue'} : styleLi
+    let currentStyle = isRatingItem ? ratingStyle : touchStyle
+
 
     return (
         <li style={currentStyle}
             id={props.id}
-            onMouseMove={props.onMouseMove}
-            onMouseDown={props.onMouseDown}>
+            onMouseMove={onMouseMoveLiHandler}
+            onClick={onClickLiHandler}
+        >
 
         </li>
     )
