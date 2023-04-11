@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
     itemId: string
     addItem: (title: string) =>void
 }
