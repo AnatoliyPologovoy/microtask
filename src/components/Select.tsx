@@ -3,6 +3,8 @@ import classes from "./Accordion.module.css"
 
 export type ItemsTypes = {
     title: string,
+    country: string,
+    population: number
     id: number
 }
 
@@ -14,7 +16,7 @@ type SelectPropsType = {
 
 export function Select(props: SelectPropsType): JSX.Element {
     const [isCollapsed, SetIsCollapsed] = useState(true)
-
+    console.log('Select rendered')
 
     const onClickTitleHandler = () => {
         SetIsCollapsed(!isCollapsed)
@@ -34,7 +36,7 @@ export function Select(props: SelectPropsType): JSX.Element {
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
             const currentItem = items.find(el=>el.title === props.title)
             const isArrowDown = e.key === 'ArrowDown'
-            console.log(isArrowDown)
+
             if (currentItem) {
                 const nextItemIndex = isArrowDown ? currentItem.id + 1 : currentItem.id - 1
                 const edgeItems = isArrowDown ? items.length - 1 : 0
