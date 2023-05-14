@@ -1,0 +1,26 @@
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+    position: relative;
+}
+.seconds {
+    border-left: 1px solid black;
+    width: 0px;
+    height: 40px;
+    position: absolute;
+    transform-origin: 0 100%;
+    transform: rotate(3deg);
+    left: 50%;
+    top: 10px
+}
+.minutes {
+    border-left: 1.5px solid black;
+    width: 0px;
+    height: 35px;
+    position: absolute;
+    transform-origin: 0 100%;
+    left: 50%;
+    top: 15px
+}
